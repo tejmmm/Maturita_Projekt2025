@@ -5,6 +5,9 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+date_default_timezone_set('Europe/Prague');
+setlocale(LC_TIME, 'cs_CZ.UTF-8');
+
 // Kontrola, zda je uživatel přihlášen a je admin
 if (!isset($_SESSION['user_id']) || $_SESSION['email'] !== 'ondra.zbori@seznam.cz') {
     header("Location: index.php");
