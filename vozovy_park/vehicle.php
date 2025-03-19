@@ -8,7 +8,7 @@ function reserveVehicle($vehicle_id, $user_id) {
     date_default_timezone_set('Europe/Prague');
     setlocale(LC_TIME, 'cs_CZ.UTF-8');
 
-    $start_date = date('Y-m-d H:i:s', strtotime('now')); // Aktuální čas zaokrouhlený na minuty
+    $start_date = date('Y-m-d H:i:s'); 
     $end_date = date('Y-m-d H:i:s', strtotime('+3 days'));
     
 
@@ -67,7 +67,8 @@ function endReservation($reservation_id) {
     $vehicle_id = $reservation['vehicle_id'];
 
     // Ukončení rezervace
-    $query = "UPDATE vypujcky SET status = 'Ukončeno', end_date = NOW() WHERE reservation_id = $1";
+    $query = "UPDATE vypujcky SET status = 'Ukončeno', end_date = NOW() AT TIME ZONE 'Europe/Prague' WHERE reservation_id = $1";
+
     $result = pg_query_params($conn, $query, [$reservation_id]);
 
     if (!$result) {
@@ -146,9 +147,9 @@ function autoCancelExpiredReservations() {
 
     $query = "
         UPDATE vypujcky 
-        SET status = 'Ukončeno', end_date = NOW()
-        WHERE status = 'Aktivní' 
-        AND start_date <= NOW() - INTERVAL '30 days'
+    SET status = 'Ukončeno', end_date = NOW() AT TIME ZONE 'Europe/Prague'
+    WHERE status = 'Aktivní' 
+    AND start_date <= NOW() - INTERVAL '30 days'
     ";
 
     pg_query($conn, $query);
