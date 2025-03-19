@@ -1,17 +1,22 @@
 <?php
 // Funkce pro připojení k databázi
 function getDbConnection() {
-    $host = getenv('dpg-cvd87b5umphs73ea242g-a'); // Hostitel databáze z Environment Variables
-    $db = getenv('maturitni_db'); // Název databáze
-    $user = getenv('maturitni_db_user'); // Uživatelské jméno
-    $pass = getenv('qHISdm8VypBWJHPWrq1GNGFuITm7Hb37'); // Heslo
-    $port = getenv('5432'); // Port databáze (Render používá 5432)
+    $host = getenv('DB_HOST'); // Hostitel databáze
+    $db = getenv('DB_NAME'); // Název databáze
+    $user = getenv('DB_USER'); // Uživatelské jméno
+    $pass = getenv('DB_PASS'); // Heslo
+    $port = getenv('DB_PORT'); // Port databáze (obvykle 5432)
+
+    // Zkontrolujeme, zda jsou proměnné správně načtené
+    if (!$host || !$db || !$user || !$pass || !$port) {
+        die("Chyba: Chybí environment variables!");
+    }
 
     // Připojení k databázi pomocí PostgreSQL
     $conn = pg_connect("host=$host port=$port dbname=$db user=$user password=$pass");
 
     if (!$conn) {
-        die("Chyba připojení: " . pg_last_error());
+        die("Chyba připojení k databázi: " . pg_last_error());
     }
 
     return $conn;
