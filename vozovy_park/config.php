@@ -7,7 +7,7 @@ function getDbConnection() {
     $pass = getenv('DB_PASS'); // Heslo
     $port = getenv('DB_PORT'); // Port databáze (obvykle 5432)
 
-    // Zkontrolujeme, zda jsou proměnné správně načtené
+    // Ověříme, zda všechny proměnné byly správně načteny
     if (!$host || !$db || !$user || !$pass || !$port) {
         die("Chyba: Chybí environment variables!");
     }
@@ -16,7 +16,7 @@ function getDbConnection() {
     $conn = pg_connect("host=$host port=$port dbname=$db user=$user password=$pass");
 
     if (!$conn) {
-        die("Chyba připojení k databázi: " . pg_last_error());
+        die("Chyba připojení k databázi: " . pg_last_error($conn));
     }
 
     return $conn;
