@@ -1,6 +1,9 @@
 <?php
 require_once 'config.php'; // Připojení k databázi
 
+date_default_timezone_set('Europe/Prague');
+setlocale(LC_TIME, 'cs_CZ.UTF-8');
+
 // Získání ID vozidla
 $vehicle_id = $_GET['vehicle_id'] ?? null;
 if (!$vehicle_id) {
