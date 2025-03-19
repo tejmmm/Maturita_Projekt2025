@@ -5,6 +5,9 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+date_default_timezone_set('Europe/Prague');
+setlocale(LC_TIME, 'cs_CZ.UTF-8');
+
 // Zkontrolujeme, zda je v $_SESSION definován klíč 'role'
 $user_role = $_SESSION['role'] ?? 'user';  // Pokud není role v $_SESSION, nastaví se výchozí hodnota 'user'
 
@@ -211,3 +214,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_note']) && $ha
     </script>
 </body>
 </html>
+
