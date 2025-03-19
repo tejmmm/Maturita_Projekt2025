@@ -21,5 +21,5 @@ function getDbConnection() {
 
     return $conn;
 }
-?>
+
 
