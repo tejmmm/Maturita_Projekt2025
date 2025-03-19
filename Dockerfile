@@ -1,8 +1,9 @@
 # Použití oficiálního PHP obrazu s Apachem
 FROM php:8.1-apache
 
-# Instalace rozšíření pro MySQL (pokud používáš databázi)
-RUN docker-php-ext-install pdo pdo_mysql mysqli
+# Instalace rozšíření pro PostgreSQL a MySQL
+RUN apt-get update && apt-get install -y libpq-dev \
+    && docker-php-ext-install pdo pdo_pgsql pgsql pdo_mysql mysqli
 
 # Nastavení pracovní složky na Apache serveru
 WORKDIR /var/www/html
