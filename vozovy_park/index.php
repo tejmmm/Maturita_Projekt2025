@@ -1,9 +1,14 @@
 <?php
-require_once 'vehicle.php';
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// Pokud session není aktivní, spusť ji
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+require_once 'vehicle.php';
+
 
 autoCancelExpiredReservations();
 
