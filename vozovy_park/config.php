@@ -19,7 +19,11 @@ function getDbConnection() {
         die("Chyba připojení k databázi: " . pg_last_error($conn));
     }
 
+    // 🔹 Nastavení správného časového pásma pro databázi
+    pg_query($conn, "SET TIME ZONE 'Europe/Prague';");
+
     return $conn;
 }
+?>
 
 
