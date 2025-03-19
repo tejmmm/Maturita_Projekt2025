@@ -4,6 +4,8 @@ require_once 'vehicle.php';
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+date_default_timezone_set('Europe/Prague');
+setlocale(LC_TIME, 'cs_CZ.UTF-8');
 
 
 
